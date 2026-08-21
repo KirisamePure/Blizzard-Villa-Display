@@ -1,0 +1,42 @@
+{
+	"schemaVersion": 1,
+	"id": "blizzard-villa-display",
+	"version": "${version}",
+	"name": "Blizzard Villa Display",
+	"description": "This is an example description! Tell everyone what your mod is about!",
+	"authors": [
+		"Me!"
+	],
+	"contact": {
+		"homepage": "https://fabricmc.net/",
+		"sources": "https://github.com/FabricMC/fabric-example-mod"
+	},
+	"license": "CC0-1.0",
+	"icon": "assets/blizzard-villa-display/icon.png",
+	"environment": "*",
+	"entrypoints": {
+		"main": [
+			"com.fxw.blizzardvilladisplay.BlizzardVillaDisplay",
+			"com.fxw.blizzardvilladisplay.networking.BlizzardVillaDisplayNetworking"
+		],
+		"client": [
+			"com.fxw.blizzardvilladisplay.client.BlizzardVillaDisplayClient",
+			"com.fxw.blizzardvilladisplay.client.rendering.BasicRendering",
+			"com.fxw.blizzardvilladisplay.client.rendering.BasicTextureRendering",
+			"com.fxw.blizzardvilladisplay.client.rendering.BasicRenderPipeline"
+		]
+	},
+	"mixins": [
+		"blizzard-villa-display.mixins.json",
+		{
+			"config": "blizzard-villa-display.client.mixins.json",
+			"environment": "client"
+		}
+	],
+	"depends": {
+		"fabricloader": ">=0.19.3",
+		"minecraft": "~1.21.10",
+		"java": ">=21",
+		"fabric-api": "*"
+	}
+}
