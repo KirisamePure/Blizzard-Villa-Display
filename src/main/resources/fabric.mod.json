@@ -20,10 +20,7 @@
 			"com.fxw.blizzardvilladisplay.networking.BlizzardVillaDisplayNetworking"
 		],
 		"client": [
-			"com.fxw.blizzardvilladisplay.client.BlizzardVillaDisplayClient",
-			"com.fxw.blizzardvilladisplay.client.rendering.BasicRendering",
-			"com.fxw.blizzardvilladisplay.client.rendering.BasicTextureRendering",
-			"com.fxw.blizzardvilladisplay.client.rendering.BasicRenderPipeline"
+			"com.fxw.blizzardvilladisplay.client.BlizzardVillaDisplayClient"
 		]
 	},
 	"mixins": [
