@@ -1,8 +1,6 @@
 package com.fxw.blizzardvilladisplay.networking;
 
-import com.fxw.blizzardvilladisplay.networking.payload.ChooseCharConfrimC2SPayload;
-import com.fxw.blizzardvilladisplay.networking.payload.OpenChooseCharS2CPayload;
-import com.fxw.blizzardvilladisplay.networking.payload.OpenCustomScreenTestS2CPayload;
+import com.fxw.blizzardvilladisplay.networking.payload.*;
 import net.fabricmc.fabric.api.networking.v1.PayloadTypeRegistry;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.StreamCodec;
@@ -19,5 +17,7 @@ public class NetworkPayloads {
         registerS2C(OpenCustomScreenTestS2CPayload.ID, OpenCustomScreenTestS2CPayload.CODEC);
         registerS2C(OpenChooseCharS2CPayload.ID, OpenChooseCharS2CPayload.CODEC);
         registerC2S(ChooseCharConfrimC2SPayload.ID, ChooseCharConfrimC2SPayload.CODEC);
+        registerS2C(OpenDetectiveS2CPayload.ID, OpenDetectiveS2CPayload.CODEC);
+        registerC2S(DetectiveConfirmC2SPayload.ID, DetectiveConfirmC2SPayload.CODEC);
     }
 }

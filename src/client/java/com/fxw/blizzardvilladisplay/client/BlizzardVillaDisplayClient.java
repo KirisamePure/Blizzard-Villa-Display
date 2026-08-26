@@ -1,11 +1,10 @@
 package com.fxw.blizzardvilladisplay.client;
 
 import com.fxw.blizzardvilladisplay.BlizzardVillaDisplay;
-import com.fxw.blizzardvilladisplay.client.rendering.screens.ChooseCharConfig;
-import com.fxw.blizzardvilladisplay.client.rendering.screens.ChooseCharScreen;
-import com.fxw.blizzardvilladisplay.client.rendering.screens.CustomTextureScreenTest;
+import com.fxw.blizzardvilladisplay.client.rendering.screens.*;
 import com.fxw.blizzardvilladisplay.networking.payload.OpenChooseCharS2CPayload;
 import com.fxw.blizzardvilladisplay.networking.payload.OpenCustomScreenTestS2CPayload;
+import com.fxw.blizzardvilladisplay.networking.payload.OpenDetectiveS2CPayload;
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
 import net.minecraft.client.multiplayer.ClientLevel;
@@ -75,6 +74,53 @@ public class BlizzardVillaDisplayClient implements ClientModInitializer {
 			};
 			context.client().execute(() -> {
 				context.client().setScreen(new ChooseCharScreen(config));
+			});
+		});
+
+		//receive open detective screen payload
+		ClientPlayNetworking.registerGlobalReceiver(OpenDetectiveS2CPayload.ID, (payload, context) -> {
+			ClientLevel level = context.client().level;
+			if (level == null) {
+				return;
+			}
+			ResourceLocation confirmTexture = ResourceLocation.fromNamespaceAndPath(BlizzardVillaDisplay.MOD_ID, "textures/gui/choose_char_confirm.png");
+			ResourceLocation cancelTexture = ResourceLocation.fromNamespaceAndPath(BlizzardVillaDisplay.MOD_ID, "textures/gui/choose_char_cancel.png");
+			String status = payload.status();
+			DetectiveConfig config = switch (status) {
+				case "start" -> new DetectiveConfig(
+						status,
+						ResourceLocation.fromNamespaceAndPath(BlizzardVillaDisplay.MOD_ID, "textures/gui/detective_start.png"),
+						confirmTexture,
+						cancelTexture
+				);
+				case "search_1" -> new DetectiveConfig(
+						status,
+						ResourceLocation.fromNamespaceAndPath(BlizzardVillaDisplay.MOD_ID, "textures/gui/detective_search_1.png"),
+						confirmTexture,
+						cancelTexture
+				);
+				case "end_search" -> new DetectiveConfig(
+						status,
+						ResourceLocation.fromNamespaceAndPath(BlizzardVillaDisplay.MOD_ID, "textures/gui/detective_end_search.png"),
+						confirmTexture,
+						cancelTexture
+				);
+				case "search_2" -> new DetectiveConfig(
+						status,
+						ResourceLocation.fromNamespaceAndPath(BlizzardVillaDisplay.MOD_ID, "textures/gui/detective_search_2.png"),
+						confirmTexture,
+						cancelTexture
+				);
+				case "vote" -> new DetectiveConfig(
+						status,
+						ResourceLocation.fromNamespaceAndPath(BlizzardVillaDisplay.MOD_ID, "textures/gui/detective_vote.png"),
+						confirmTexture,
+						cancelTexture
+				);
+                default -> null;
+			};
+			context.client().execute(() -> {
+				context.client().setScreen(new DetectiveYoNScreen(config));
 			});
 		});
 	}
