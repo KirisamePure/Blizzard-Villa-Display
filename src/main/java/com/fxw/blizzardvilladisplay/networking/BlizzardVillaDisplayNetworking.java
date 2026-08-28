@@ -159,7 +159,7 @@ public class BlizzardVillaDisplayNetworking implements ModInitializer {
                                             for (ServerPlayer serverPlayer : server.getPlayerList().getPlayers()) {
                                                 serverPlayer.teleportTo(
                                                         overworld,
-                                                        0, 0, 0,
+                                                        -2928.5, 279, 3092.5,
                                                         Set.of(),
                                                         serverPlayer.getYRot(),
                                                         serverPlayer.getXRot(),
@@ -248,20 +248,20 @@ public class BlizzardVillaDisplayNetworking implements ModInitializer {
 
         //receive detective confirm payload
         final Map<String, BlockPos> START_POS = Map.of(
-                "ys", new BlockPos(0, 0, 0),
-                "ke", new BlockPos(0, 0, 0),
-                "ysbe", new BlockPos(0, 0, 0),
-                "flk", new BlockPos(0, 0, 0),
-                "tms", new BlockPos(0, 0, 0),
-                "sfy", new BlockPos(0, 0, 0)
+                "ys", new BlockPos(-2908, 273, 3071),
+                "ke", new BlockPos(-2921, 273, 3071),
+                "ysbe", new BlockPos(-2934, 273, 3071),
+                "flk", new BlockPos(-2908, 262, 3071),
+                "tms", new BlockPos(-2921, 261, 3071),
+                "sfy", new BlockPos(-2934, 261, 3071)
         );
         final Map<String, BlockPos> VOTE_POS = Map.of(
-                "ys", new BlockPos(0, 0, 0),
-                "ke", new BlockPos(0, 0, 0),
-                "ysbe", new BlockPos(0, 0, 0),
-                "flk", new BlockPos(0, 0, 0),
-                "tms", new BlockPos(0, 0, 0),
-                "sfy", new BlockPos(0, 0, 0)
+                "ys", new BlockPos(-2956, 239, 3074),
+                "ke", new BlockPos(-2976, 239, 3073),
+                "ysbe", new BlockPos(-2996, 239, 3073),
+                "flk", new BlockPos(-2957, 239, 3058),
+                "tms", new BlockPos(-2977, 239, 3057),
+                "sfy", new BlockPos(-2997, 239, 3056)
         );
         ServerPlayNetworking.registerGlobalReceiver(
                 DetectiveConfirmC2SPayload.ID, (payload, context) -> {
@@ -296,7 +296,7 @@ public class BlizzardVillaDisplayNetworking implements ModInitializer {
                                 for (ServerPlayer player : server.getPlayerList().getPlayers()) {
                                     player.teleportTo(
                                             overworld,
-                                            0, 0, 0,
+                                            -2717.5, 191, 3495.5,
                                             Set.of(),
                                             player.getYRot(),
                                             player.getXRot(),
@@ -309,6 +309,10 @@ public class BlizzardVillaDisplayNetworking implements ModInitializer {
                                     player.experienceLevel = 1800;
                                     player.experienceProgress = 0.0F;
                                     player.connection.send(new ClientboundSetExperiencePacket(player.experienceProgress, player.totalExperience, player.experienceLevel));
+                                    server.getCommands().performPrefixedCommand(
+                                            server.createCommandSourceStack(),
+                                            "function clues:set_clues_1"
+                                    );
                                 }
                             }
 
@@ -326,7 +330,7 @@ public class BlizzardVillaDisplayNetworking implements ModInitializer {
                                 for (ServerPlayer player : server.getPlayerList().getPlayers()) {
                                     player.teleportTo(
                                             overworld,
-                                            0, 0, 0,
+                                            -2717.5, 191, 3495.5,
                                             Set.of(),
                                             player.getYRot(),
                                             player.getXRot(),
@@ -339,6 +343,10 @@ public class BlizzardVillaDisplayNetworking implements ModInitializer {
                                     player.experienceLevel = 1800;
                                     player.experienceProgress = 0.0F;
                                     player.connection.send(new ClientboundSetExperiencePacket(player.experienceProgress, player.totalExperience, player.experienceLevel));
+                                    server.getCommands().performPrefixedCommand(
+                                            server.createCommandSourceStack(),
+                                            "function clues:set_clues_2"
+                                    );
                                     server.getCommands().performPrefixedCommand(
                                             server.createCommandSourceStack(),
                                             "kill @e[type=minecraft:interaction,tag=detective_search_2]"
