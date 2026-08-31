@@ -1,5 +1,6 @@
 package com.fxw.blizzardvilladisplay;
 
+import com.fxw.blizzardvilladisplay.networking.HighlightSearch;
 import net.fabricmc.api.ModInitializer;
 
 import net.minecraft.resources.ResourceLocation;

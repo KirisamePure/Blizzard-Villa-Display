@@ -19,5 +19,7 @@ public class NetworkPayloads {
         registerC2S(ChooseCharConfrimC2SPayload.ID, ChooseCharConfrimC2SPayload.CODEC);
         registerS2C(OpenDetectiveS2CPayload.ID, OpenDetectiveS2CPayload.CODEC);
         registerC2S(DetectiveConfirmC2SPayload.ID, DetectiveConfirmC2SPayload.CODEC);
+        registerC2S(RequestHighlightC2SPayload.ID, RequestHighlightC2SPayload.CODEC);
+        registerS2C(HighlightDataS2CPayload.ID, HighlightDataS2CPayload.CODEC);
     }
 }

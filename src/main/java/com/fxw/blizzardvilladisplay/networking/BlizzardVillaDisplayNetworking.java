@@ -35,6 +35,7 @@ public class BlizzardVillaDisplayNetworking implements ModInitializer {
     @Override
     public void onInitialize() {
         NetworkPayloads.initialize();
+        HighlightSearch.initialize();
 
         //open custom texture screen test
 //        UseEntityCallback.EVENT.register((player, world, hand, entity, hitResult) -> {

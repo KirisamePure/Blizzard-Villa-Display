@@ -20,7 +20,8 @@
 			"com.fxw.blizzardvilladisplay.networking.BlizzardVillaDisplayNetworking"
 		],
 		"client": [
-			"com.fxw.blizzardvilladisplay.client.BlizzardVillaDisplayClient"
+			"com.fxw.blizzardvilladisplay.client.BlizzardVillaDisplayClient",
+			"com.fxw.blizzardvilladisplay.client.rendering.HighlightSearchClient"
 		]
 	},
 	"mixins": [
