@@ -81,14 +81,14 @@ public class BlizzardVillaDisplayNetworking implements ModInitializer {
                             PlayerTeam playerTeam = scoreboard.getPlayersTeam(player.getScoreboardName());
                             if (playerTeam != null) {
                                 player.displayClientMessage(Component.literal("你已经选择角色了!").withColor(0xDC143C), false);
-                                player.playNotifySound(SoundEvents.VILLAGER_NO, SoundSource.PLAYERS, 1.0f, 1.0f);
+                                player.playNotifySound(SoundEvents.VILLAGER_NO, SoundSource.MASTER, 1.0f, 1.0f);
                                 return InteractionResult.SUCCESS;
                             }
                             String targetTeamName = charId;
                             PlayerTeam targetTeam = scoreboard.getPlayerTeam(targetTeamName);
                             if (targetTeam != null && !targetTeam.getPlayers().isEmpty()) {
                                 player.displayClientMessage(Component.literal("该角色已经被选择了!").withColor(0xDC143C), false);
-                                player.playNotifySound(SoundEvents.VILLAGER_NO, SoundSource.PLAYERS, 1.0f, 1.0f);
+                                player.playNotifySound(SoundEvents.VILLAGER_NO, SoundSource.MASTER, 1.0f, 1.0f);
                                 return InteractionResult.SUCCESS;
                             }
                             ServerPlayNetworking.send((ServerPlayer) player, new OpenChooseCharS2CPayload(charId, player.blockPosition()));
@@ -122,7 +122,7 @@ public class BlizzardVillaDisplayNetworking implements ModInitializer {
                                                 .collect(Collectors.joining("、"));
                                         Component warningMsg = Component.literal("仍有角色未被选择！ 未选角色: " + emptyTeamNames)
                                                 .withColor(0xFF5555);
-                                        player.playNotifySound(SoundEvents.VILLAGER_NO, SoundSource.PLAYERS, 1.0f, 1.0f);
+                                        player.playNotifySound(SoundEvents.VILLAGER_NO, SoundSource.MASTER, 1.0f, 1.0f);
                                         if (world.getServer() != null) {
                                             world.getServer().getPlayerList().broadcastSystemMessage(warningMsg, false);
                                         }
@@ -142,7 +142,7 @@ public class BlizzardVillaDisplayNetworking implements ModInitializer {
                                                         .withColor(0xFFFF00),
                                                 false
                                         );
-                                        player.playNotifySound(SoundEvents.VILLAGER_NO, SoundSource.PLAYERS, 1.0f, 1.0f);
+                                        player.playNotifySound(SoundEvents.VILLAGER_NO, SoundSource.MASTER, 1.0f, 1.0f);
                                         return InteractionResult.SUCCESS;
                                     }
                                     READ_PLAYERS.add(playerUuid);
@@ -165,13 +165,13 @@ public class BlizzardVillaDisplayNetworking implements ModInitializer {
                                                         serverPlayer.getXRot(),
                                                         true
                                                 );
-                                                serverPlayer.playNotifySound(SoundEvents.PLAYER_LEVELUP, SoundSource.PLAYERS, 1.0f, 1.0f);
+                                                serverPlayer.playNotifySound(SoundEvents.PLAYER_LEVELUP, SoundSource.MASTER, 1.0f, 1.0f);
                                                 Component title = Component.literal("自我介绍").withColor(0xDC143C);
-                                                Component text = Component.literal("现在是自我介绍环节，下一阶段为一轮搜证。").withColor(0x7FFFAA);
                                                 serverPlayer.connection.send(new ClientboundSetTitlesAnimationPacket(10, 70, 20));
                                                 serverPlayer.connection.send(new ClientboundSetTitleTextPacket(title));
-                                                server.getPlayerList().broadcastSystemMessage(text, false);
                                             }
+                                            Component text = Component.literal("现在是自我介绍环节，下一阶段为一轮搜证。").withColor(0x7FFFAA);
+                                            server.getPlayerList().broadcastSystemMessage(text, false);
                                         }
                                         READ_PLAYERS.clear();
                                     }
@@ -248,12 +248,12 @@ public class BlizzardVillaDisplayNetworking implements ModInitializer {
 
         //receive detective confirm payload
         final Map<String, BlockPos> START_POS = Map.of(
-                "ys", new BlockPos(-2908, 273, 3071),
-                "ke", new BlockPos(-2921, 273, 3071),
-                "ysbe", new BlockPos(-2934, 273, 3071),
-                "flk", new BlockPos(-2908, 262, 3071),
-                "tms", new BlockPos(-2921, 261, 3071),
-                "sfy", new BlockPos(-2934, 261, 3071)
+                "ys", new BlockPos(-2911, 273, 3072),
+                "ke", new BlockPos(-2924, 273, 3072),
+                "ysbe", new BlockPos(-2937, 273, 3072),
+                "flk", new BlockPos(-2910, 262, 3072),
+                "tms", new BlockPos(-2924, 261, 3072),
+                "sfy", new BlockPos(-2937, 261, 3072)
         );
         final Map<String, BlockPos> VOTE_POS = Map.of(
                 "ys", new BlockPos(-2956, 239, 3074),
@@ -286,7 +286,7 @@ public class BlizzardVillaDisplayNetworking implements ModInitializer {
                                                     player.getYRot(),
                                                     player.getXRot(),
                                                     true);
-                                            player.playNotifySound(SoundEvents.PLAYER_LEVELUP, SoundSource.PLAYERS, 1.0f, 1.0f);
+                                            player.playNotifySound(SoundEvents.PLAYER_LEVELUP, SoundSource.MASTER, 1.0f, 1.0f);
                                         }
                                     }
                                 }
@@ -302,18 +302,18 @@ public class BlizzardVillaDisplayNetworking implements ModInitializer {
                                             player.getXRot(),
                                             true
                                              );
-                                    player.playNotifySound(SoundEvents.PLAYER_LEVELUP, SoundSource.PLAYERS, 1.0f, 1.0f);
+                                    player.playNotifySound(SoundEvents.PLAYER_LEVELUP, SoundSource.MASTER, 1.0f, 1.0f);
                                     Component title = Component.literal("一轮搜证开始!").withColor(0xDC143C);
                                     player.connection.send(new ClientboundSetTitlesAnimationPacket(10, 70, 20));
                                     player.connection.send(new ClientboundSetTitleTextPacket(title));
                                     player.experienceLevel = 1800;
                                     player.experienceProgress = 0.0F;
                                     player.connection.send(new ClientboundSetExperiencePacket(player.experienceProgress, player.totalExperience, player.experienceLevel));
-                                    server.getCommands().performPrefixedCommand(
-                                            server.createCommandSourceStack(),
-                                            "function clues:set_clues_1"
-                                    );
                                 }
+                                server.getCommands().performPrefixedCommand(
+                                        server.createCommandSourceStack(),
+                                        "function clues:set_clues_1"
+                                );
                             }
 
                             case "end_search" -> {
@@ -321,7 +321,7 @@ public class BlizzardVillaDisplayNetworking implements ModInitializer {
                                     player.experienceProgress = 0.0F;
                                     player.experienceLevel = 0;
                                     player.connection.send(new ClientboundSetExperiencePacket(player.experienceProgress, player.totalExperience, player.experienceLevel));
-                                    player.playNotifySound(SoundEvents.PLAYER_LEVELUP, SoundSource.PLAYERS, 1.0f, 1.0f);
+                                    player.playNotifySound(SoundEvents.PLAYER_LEVELUP, SoundSource.MASTER, 1.0f, 1.0f);
                                 }
                             }
 
@@ -336,26 +336,26 @@ public class BlizzardVillaDisplayNetworking implements ModInitializer {
                                             player.getXRot(),
                                             true
                                     );
-                                    player.playNotifySound(SoundEvents.PLAYER_LEVELUP, SoundSource.PLAYERS, 1.0f, 1.0f);
+                                    player.playNotifySound(SoundEvents.PLAYER_LEVELUP, SoundSource.MASTER, 1.0f, 1.0f);
                                     Component title = Component.literal("二轮搜证开始!").withColor(0xDC143C);
                                     player.connection.send(new ClientboundSetTitlesAnimationPacket(10, 70, 20));
                                     player.connection.send(new ClientboundSetTitleTextPacket(title));
                                     player.experienceLevel = 1800;
                                     player.experienceProgress = 0.0F;
                                     player.connection.send(new ClientboundSetExperiencePacket(player.experienceProgress, player.totalExperience, player.experienceLevel));
-                                    server.getCommands().performPrefixedCommand(
-                                            server.createCommandSourceStack(),
-                                            "function clues:set_clues_2"
-                                    );
-                                    server.getCommands().performPrefixedCommand(
-                                            server.createCommandSourceStack(),
-                                            "kill @e[type=minecraft:interaction,tag=detective_search_2]"
-                                    );
-                                    server.getCommands().performPrefixedCommand(
-                                            server.createCommandSourceStack(),
-                                            "summon minecraft:interaction ~ ~ ~ {Tags:[\"detective_vote\"],height:2,width:0.5}"
-                                    );
                                 }
+                                server.getCommands().performPrefixedCommand(
+                                        server.createCommandSourceStack(),
+                                        "function clues:set_clues_2"
+                                );
+                                server.getCommands().performPrefixedCommand(
+                                        server.createCommandSourceStack(),
+                                        "kill @e[type=minecraft:interaction,tag=detective_search_2]"
+                                );
+                                server.getCommands().performPrefixedCommand(
+                                        server.createCommandSourceStack(),
+                                        "summon minecraft:interaction -2962 281 3089 {Tags:[\"detective_vote\"],height:2,width:0.6}"
+                                );
                             }
 
                             case "vote" -> {
@@ -374,15 +374,15 @@ public class BlizzardVillaDisplayNetworking implements ModInitializer {
                                                     player.getYRot(),
                                                     player.getXRot(),
                                                     true);
-                                            player.playNotifySound(SoundEvents.PLAYER_LEVELUP, SoundSource.PLAYERS, 1.0f, 1.0f);
+                                            player.playNotifySound(SoundEvents.PLAYER_LEVELUP, SoundSource.MASTER, 1.0f, 1.0f);
                                             Component title = Component.literal("最终投票").withColor(0x800000);
-                                            Component text = Component.literal("开始最终投票，请选择你认为的凶手").withColor(0xF0E68C);
                                             player.connection.send(new ClientboundSetTitlesAnimationPacket(10, 70, 20));
                                             player.connection.send(new ClientboundSetTitleTextPacket(title));
-                                            server.getPlayerList().broadcastSystemMessage(text, false);
                                         }
                                     }
                                 }
+                                Component text = Component.literal("开始最终投票，请选择你认为的凶手").withColor(0xF0E68C);
+                                server.getPlayerList().broadcastSystemMessage(text, false);
                             }
 
                             default -> {}
