@@ -384,6 +384,10 @@ public class BlizzardVillaDisplayNetworking implements ModInitializer {
                                 }
                                 Component text = Component.literal("开始最终投票，请选择你认为的凶手").withColor(0xF0E68C);
                                 server.getPlayerList().broadcastSystemMessage(text, false);
+                                server.getCommands().performPrefixedCommand(
+                                        server.createCommandSourceStack(),
+                                        "function vote:start_vote"
+                                );
                             }
 
                             default -> {}
