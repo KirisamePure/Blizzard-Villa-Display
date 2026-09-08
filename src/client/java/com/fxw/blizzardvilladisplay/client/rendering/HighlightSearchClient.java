@@ -3,11 +3,10 @@ package com.fxw.blizzardvilladisplay.client.rendering;
 import com.fxw.blizzardvilladisplay.BlizzardVillaDisplay;
 import com.fxw.blizzardvilladisplay.networking.payload.HighlightDataS2CPayload;
 import com.fxw.blizzardvilladisplay.networking.payload.RequestHighlightC2SPayload;
-import com.mojang.blaze3d.pipeline.RenderPipeline;
-import com.mojang.blaze3d.platform.DepthTestFunction;
 import com.mojang.blaze3d.platform.InputConstants;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
+import fi.dy.masa.malilib.render.MaLiLibPipelines;
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
 import net.fabricmc.fabric.api.client.keybinding.v1.KeyBindingHelper;
@@ -18,7 +17,6 @@ import net.minecraft.client.KeyMapping;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.renderer.MultiBufferSource;
-import net.minecraft.client.renderer.RenderPipelines;
 import net.minecraft.client.renderer.RenderStateShard;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.core.BlockPos;
@@ -117,18 +115,23 @@ public class HighlightSearchClient implements ClientModInitializer {
 
     }
 
-    private static final RenderPipeline FILLED_THROUGH_WALLS_PIPELINE = RenderPipelines.register(RenderPipeline.builder(RenderPipelines.LINES_SNIPPET)
-            .withLocation(ResourceLocation.fromNamespaceAndPath(BlizzardVillaDisplay.MOD_ID, "pipeline/debug_filled_box_through_walls"))
-            .withDepthTestFunction(DepthTestFunction.NO_DEPTH_TEST)
-            .build()
-    );
+//    private static final RenderPipeline FILLED_THROUGH_WALLS_PIPELINE = RenderPipelines.register(RenderPipeline.builder()
+//            .withLocation(ResourceLocation.fromNamespaceAndPath(BlizzardVillaDisplay.MOD_ID, "pipeline/debug_filled_box_through_walls"))
+//            .withDepthTestFunction(DepthTestFunction.NO_DEPTH_TEST)
+//            .withCull(false)
+//            .build()
+//    );
 
     public static final RenderType FILLED_THROUGH_WALLS = RenderType.create(
             "filled_through_walls",
-            256,
-            FILLED_THROUGH_WALLS_PIPELINE,
+            1536,
+            false,
+            false,
+            MaLiLibPipelines.DEBUG_LINES_TRANSLUCENT_NO_DEPTH_NO_CULL,
             RenderType.CompositeState.builder()
-                    .setLineState(new RenderStateShard.LineStateShard(OptionalDouble.of(4.0D)))
+                    .setLineState(new RenderStateShard.LineStateShard(OptionalDouble.of(8.0D)))
+                    .setLayeringState(RenderStateShard.VIEW_OFFSET_Z_LAYERING)
+                    .setOutputState(RenderStateShard.MAIN_TARGET)
                     .createCompositeState(false)
     );
 
