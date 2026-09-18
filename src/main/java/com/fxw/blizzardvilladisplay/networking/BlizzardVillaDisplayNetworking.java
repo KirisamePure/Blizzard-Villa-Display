@@ -287,7 +287,7 @@ public class BlizzardVillaDisplayNetworking implements ModInitializer {
                                                     player.getYRot(),
                                                     player.getXRot(),
                                                     true);
-                                            player.playNotifySound(SoundEvents.PLAYER_LEVELUP, SoundSource.MASTER, 1.0f, 1.0f);
+                                            player.playNotifySound(SoundEvents.PLAYER_LEVELUP, SoundSource.PLAYERS, 1.0f, 1.0f);
                                         }
                                     }
                                 }
@@ -303,7 +303,8 @@ public class BlizzardVillaDisplayNetworking implements ModInitializer {
                                             player.getXRot(),
                                             true
                                              );
-                                    player.playNotifySound(SoundEvents.PLAYER_LEVELUP, SoundSource.MASTER, 1.0f, 1.0f);
+                                    player.addTag("playing");
+                                    player.playNotifySound(SoundEvents.PLAYER_LEVELUP, SoundSource.PLAYERS, 1.0f, 1.0f);
                                     Component title = Component.literal("一轮搜证开始!").withColor(0xDC143C);
                                     player.connection.send(new ClientboundSetTitlesAnimationPacket(10, 70, 20));
                                     player.connection.send(new ClientboundSetTitleTextPacket(title));
@@ -322,7 +323,7 @@ public class BlizzardVillaDisplayNetworking implements ModInitializer {
                                     player.experienceProgress = 0.0F;
                                     player.experienceLevel = 0;
                                     player.connection.send(new ClientboundSetExperiencePacket(player.experienceProgress, player.totalExperience, player.experienceLevel));
-                                    player.playNotifySound(SoundEvents.PLAYER_LEVELUP, SoundSource.MASTER, 1.0f, 1.0f);
+                                    player.playNotifySound(SoundEvents.PLAYER_LEVELUP, SoundSource.PLAYERS, 1.0f, 1.0f);
                                 }
                             }
 
@@ -337,7 +338,8 @@ public class BlizzardVillaDisplayNetworking implements ModInitializer {
                                             player.getXRot(),
                                             true
                                     );
-                                    player.playNotifySound(SoundEvents.PLAYER_LEVELUP, SoundSource.MASTER, 1.0f, 1.0f);
+                                    player.addTag("playing");
+                                    player.playNotifySound(SoundEvents.PLAYER_LEVELUP, SoundSource.PLAYERS, 1.0f, 1.0f);
                                     Component title = Component.literal("二轮搜证开始!").withColor(0xDC143C);
                                     player.connection.send(new ClientboundSetTitlesAnimationPacket(10, 70, 20));
                                     player.connection.send(new ClientboundSetTitleTextPacket(title));
@@ -375,7 +377,7 @@ public class BlizzardVillaDisplayNetworking implements ModInitializer {
                                                     player.getYRot(),
                                                     player.getXRot(),
                                                     true);
-                                            player.playNotifySound(SoundEvents.PLAYER_LEVELUP, SoundSource.MASTER, 1.0f, 1.0f);
+                                            player.playNotifySound(SoundEvents.PLAYER_LEVELUP, SoundSource.PLAYERS, 1.0f, 1.0f);
                                             Component title = Component.literal("最终投票").withColor(0x800000);
                                             player.connection.send(new ClientboundSetTitlesAnimationPacket(10, 70, 20));
                                             player.connection.send(new ClientboundSetTitleTextPacket(title));

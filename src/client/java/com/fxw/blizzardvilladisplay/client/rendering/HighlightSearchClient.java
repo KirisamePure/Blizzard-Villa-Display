@@ -79,7 +79,7 @@ public class HighlightSearchClient implements ClientModInitializer {
                 highlightedEntities.addAll(payload.entityIds());
                 highlightedBlocks.clear();
                 highlightedBlocks.addAll(payload.blockPositions());
-                highlightTicksRemaining = 60;
+                highlightTicksRemaining = 120;
             });
         });
 
