@@ -24,16 +24,16 @@ public class HighlightSearch {
             ServerLevel level = player.level();
             context.server().execute(() -> {
                 Vec3 pos = player.position();
-                AABB searchBox = new AABB(pos.subtract(10, 10, 10), pos.add(10, 10, 10));
+                AABB searchBox = new AABB(pos.subtract(20, 20, 20), pos.add(20, 20, 20));
 
                 List<Integer> entityIds = level.getEntitiesOfClass(
                         ItemFrame.class, searchBox,
-                        e -> e.distanceToSqr(player) <= 100 && e.getTags().contains("clue_frame")
+                        e -> e.distanceToSqr(player) <= 200 && e.getTags().contains("clue_frame")
                 ).stream().map(Entity::getId).toList();
                 List<BlockPos> blockPositions = new ArrayList<>();
                 BlockPos playerPos = player.blockPosition();
-                for (BlockPos bPos : BlockPos.betweenClosed(playerPos.subtract(new Vec3i(10, 10, 10)), playerPos.offset(10, 10, 10))) {
-                    if (bPos.distSqr(playerPos) <= 100) {
+                for (BlockPos bPos : BlockPos.betweenClosed(playerPos.subtract(new Vec3i(20, 20, 20)), playerPos.offset(20, 20, 20))) {
+                    if (bPos.distSqr(playerPos) <= 200) {
                         if (level.getBlockState(bPos).is(Blocks.CHISELED_BOOKSHELF)) {
                             if (level.getBlockEntity(bPos) instanceof ChiseledBookShelfBlockEntity be && !be.isEmpty()) {
                                 blockPositions.add(bPos.immutable());
