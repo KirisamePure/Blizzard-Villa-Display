@@ -15,7 +15,6 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
-import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.InteractionHand;
@@ -23,7 +22,6 @@ import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.Interaction;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.scores.PlayerTeam;
-import net.minecraft.world.scores.Score;
 import net.minecraft.world.scores.Scoreboard;
 
 import java.util.*;
@@ -82,14 +80,14 @@ public class BlizzardVillaDisplayNetworking implements ModInitializer {
                             PlayerTeam playerTeam = scoreboard.getPlayersTeam(player.getScoreboardName());
                             if (playerTeam != null) {
                                 player.displayClientMessage(Component.literal("你已经选择角色了!").withColor(0xDC143C), false);
-                                player.playNotifySound(SoundEvents.VILLAGER_NO, SoundSource.MASTER, 1.0f, 1.0f);
+                                player.playNotifySound(SoundEvents.VILLAGER_NO, SoundSource.PLAYERS, 1.0f, 1.0f);
                                 return InteractionResult.SUCCESS;
                             }
                             String targetTeamName = charId;
                             PlayerTeam targetTeam = scoreboard.getPlayerTeam(targetTeamName);
                             if (targetTeam != null && !targetTeam.getPlayers().isEmpty()) {
                                 player.displayClientMessage(Component.literal("该角色已经被选择了!").withColor(0xDC143C), false);
-                                player.playNotifySound(SoundEvents.VILLAGER_NO, SoundSource.MASTER, 1.0f, 1.0f);
+                                player.playNotifySound(SoundEvents.VILLAGER_NO, SoundSource.PLAYERS, 1.0f, 1.0f);
                                 return InteractionResult.SUCCESS;
                             }
                             ServerPlayNetworking.send((ServerPlayer) player, new OpenChooseCharS2CPayload(charId, player.blockPosition()));
@@ -123,7 +121,7 @@ public class BlizzardVillaDisplayNetworking implements ModInitializer {
                                                 .collect(Collectors.joining("、"));
                                         Component warningMsg = Component.literal("仍有角色未被选择！ 未选角色: " + emptyTeamNames)
                                                 .withColor(0xFF5555);
-                                        player.playNotifySound(SoundEvents.VILLAGER_NO, SoundSource.MASTER, 1.0f, 1.0f);
+                                        player.playNotifySound(SoundEvents.VILLAGER_NO, SoundSource.PLAYERS, 1.0f, 1.0f);
                                         if (world.getServer() != null) {
                                             world.getServer().getPlayerList().broadcastSystemMessage(warningMsg, false);
                                         }
@@ -143,7 +141,7 @@ public class BlizzardVillaDisplayNetworking implements ModInitializer {
                                                         .withColor(0xFFFF00),
                                                 false
                                         );
-                                        player.playNotifySound(SoundEvents.VILLAGER_NO, SoundSource.MASTER, 1.0f, 1.0f);
+                                        player.playNotifySound(SoundEvents.VILLAGER_NO, SoundSource.PLAYERS, 1.0f, 1.0f);
                                         return InteractionResult.SUCCESS;
                                     }
                                     READ_PLAYERS.add(playerUuid);
@@ -166,7 +164,7 @@ public class BlizzardVillaDisplayNetworking implements ModInitializer {
                                                         serverPlayer.getXRot(),
                                                         true
                                                 );
-                                                serverPlayer.playNotifySound(SoundEvents.PLAYER_LEVELUP, SoundSource.MASTER, 1.0f, 1.0f);
+                                                serverPlayer.playNotifySound(SoundEvents.PLAYER_LEVELUP, SoundSource.PLAYERS, 1.0f, 1.0f);
                                                 Component title = Component.literal("自我介绍").withColor(0xDC143C);
                                                 serverPlayer.connection.send(new ClientboundSetTitlesAnimationPacket(10, 70, 20));
                                                 serverPlayer.connection.send(new ClientboundSetTitleTextPacket(title));
