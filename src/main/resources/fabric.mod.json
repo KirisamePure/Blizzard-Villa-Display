@@ -3,9 +3,9 @@
 	"id": "blizzard-villa-display",
 	"version": "${version}",
 	"name": "Blizzard Villa Display",
-	"description": "This is an example description! Tell everyone what your mod is about!",
+	"description": "add display functionality to my larp map",
 	"authors": [
-		"Me!"
+		"fxw"
 	],
 	"contact": {
 		"homepage": "https://fabricmc.net/",
